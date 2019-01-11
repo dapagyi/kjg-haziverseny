@@ -71,23 +71,6 @@
         document.getElementById("status").className = "text-danger";
     });
     var x = null;
-    /*socket.on("timer", (t)=>{
-        if (x!=null) clearInterval(x);
-        x = setInterval(function() {
-        var distance = t - (new Date().getTime());
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById("timer").innerHTML = minutes + " perc " + seconds + " másodperc ";
-        if (distance < 0) {
-            isCorrect = true;
-            clearInterval(x);
-            document.getElementById("timer").innerHTML = "Az idő lejárt.";
-        }
-        }, 1000); 
-    });*/
     socket.on("inttick", sec => {
         var seconds = sec % 60;
         var minutes = (sec - seconds)/60;
@@ -106,19 +89,6 @@
         MathJax.Hub.Queue(["Typeset",MathJax.Hub,questiondiv]);
         document.getElementById("timer").innerHTML = "";
     });
-    /*socket.on("iscorrect", b => {
-        document.getElementById("iscorrect").innerText = b;
-        document.getElementById("iscorrect").className = "text"
-        if (b == "Jó válasz!") {
-            document.getElementById("iscorrect").className = "text-success";
-            document.getElementById("ans").disabled = true;
-            isCorrect = true;
-            document.getElementById("ans").value = "";
-        }
-        else if (b=="Rossz válasz!") {  
-            document.getElementById("iscorrect").className = "text-danger";
-        }
-    });*/
     socket.on("reply", data => {
         document.getElementById("iscorrect").innerText = data.message;
         document.getElementById("iscorrect").className = data.class;
