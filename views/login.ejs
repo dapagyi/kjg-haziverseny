@@ -1,0 +1,50 @@
+<head>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/yeti/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/x-scss" href="https://bootswatch.com/4/yeti/_bootswatch.scss"/>
+    <link rel="stylesheet" type="text/x-scss" href="https://bootswatch.com/4/yeti/_variables.scss"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="icon" href="/icon.png">
+    <title>KJG háziverseny</title>
+</head>
+<body style="background-color:rgb(245, 232, 117)"><!--springgreen-->
+<div class="row">
+<div class="col-lg-4"></div>
+<div style="margin: 1em" class="col-lg-4">
+        <!-- <h5 style="padding-top:1em;padding-bottom:1em" id="q"><%if (typeof text !== 'undefined'){%> <%=text%> <%} else {%>asd<%}%></h3> -->
+            <div class="row">
+                <!-- ÚJ: -->
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                        <h1 style="padding-top:1em; padding-bottom:1em"><img style="margin-right:0.5em" src="/cimer.png" alt="Címer" width="7%"><strong>KJG háziverseny</strong></h1>
+        <form action="/<%if (typeof action !== 'undefined'){%> <%=action%> <%}%>" method="POST">
+        <div class="form-group">
+            <label for="inputName" style="font-size:1.5rem">Név</label>
+            <input required name="name" type="text" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Katona József" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+            <!-- <small id="nameHelp" class="form-text text-muted">Az összes csapattagot soroljátok fel.</small> -->
+        </div>
+        <div class="form-group">
+            <label for="inputSchool" style="font-size:1.5rem">Iskola</label>
+            <input name="school" type="text" class="form-control" id="inputSchool" aria-describedby="schoolHelp" placeholder="Katona" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+            <small id="schoolHelp" class="form-text text-muted">Nem kell kiírni a teljes nevét, csak egyértelmű legyen.</small>
+        </div>
+        <div style="display:none" class="form-group">
+            <label for="inputEmail" style="font-size:1.5rem">Email</label>
+            <input type="text" name="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="igazgato@kjg.hu" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+            <small id="emailHelp" class="form-text text-muted">Aki szeretné, megadhatja az email címét is (nem kötelező),
+                csak itt is legyen egyértelmű kié az. Ezt egyelőre nem tudjuk mire fogjuk használni,
+                de a megadásával elfogadod a nemlétező adatvédelmi nyilatkozatunkat.</small>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Bejelentkezés">
+        </form>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+</div>
+<div class="col-lg-4"></div>
+</div>
+
+</body>

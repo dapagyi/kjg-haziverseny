@@ -1,0 +1,137 @@
+<head>
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/yeti/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/x-scss" href="https://bootswatch.com/4/yeti/_bootswatch.scss"/>
+        <link rel="stylesheet" type="text/x-scss" href="https://bootswatch.com/4/yeti/_variables.scss"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
+        
+        <link rel="icon" href="/icon.png">
+        <title>KJG nyílt nap</title>
+    </head>
+    <body style="background-color:rgb(255, 245, 155)"><!--springgreen //:rgb(245, 232, 117) -->
+    <div class="row">
+    <div class="col-lg-4"></div>
+    <div style="margin: 1em" class="col-lg-4">
+    <p id="pm" style="padding-top:1em"></p>
+    <!--<br>--><p style="font-size:1.25em" id="iscorrect"></p>
+    <h1><img style="margin-right:0.5em" src="/cimer.png" alt="Címer" width="7%"><strong>KJG háziverseny</strong></h1>
+    <small id="status"><%=name%></small>
+    <h5 style="padding-top:0.5em;padding-bottom:1em" id="q"><%if (typeof q !== 'undefined'){%> <%=q%> <%} else {%>A verseny kezdete után itt fognak megjelenni a kérdések.<%}%></h3>
+    <div class="row">
+        <div class="col-lg-10"><input style="margin-bottom:2em" class="form-control" id="ans" type="number"></div>
+        <div class="col-lg-2"><button class="btn btn-primary" id="send" onclick="ans();" type="button">Küldés</button></div>
+    </div>
+    <p style="font-size:1.25em" id="iscorrect2"></p>
+    <p id="timer"></p>
+    <div id="imgdiv" style="visibility: hidden" align="center"><img id="img" alt="Kép" width="80%"></div>
+    
+    </div>
+    <div class="col-lg-4"></div>
+    </div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var data = {name: "<%=name%>", school: "<%=school%>"};//JSON
+    
+    var socket = io();
+    function welcome() {socket.emit("welcome", data);}
+    socket.on("welcome", welcome);
+    
+    var isCorrect = false;
+
+    socket.on('img', url => {
+        if (url==""){
+            document.getElementById("imgdiv").style.visibility='hidden';
+        }
+        else {
+            document.getElementById("img").src = url;
+            document.getElementById("imgdiv").style.visibility='visible';
+        }
+    });
+
+    socket.on('pm', m => {
+        if (m.team == data.name) document.getElementById("pm").innerText = m.msg;
+    });
+
+    socket.on('connect', () => {
+        document.getElementById("status").className = "text-success";
+    });
+
+    socket.on('score', d => {
+        if (d.team == data.name) document.getElementById("status").innerText = data.name + " (" + d.score +  " pont)";
+    });
+
+    socket.on('disconnect', () => {
+        document.getElementById("status").className = "text-danger";
+    });
+    var x = null;
+    /*socket.on("timer", (t)=>{
+        if (x!=null) clearInterval(x);
+        x = setInterval(function() {
+        var distance = t - (new Date().getTime());
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = minutes + " perc " + seconds + " másodperc ";
+        if (distance < 0) {
+            isCorrect = true;
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "Az idő lejárt.";
+        }
+        }, 1000); 
+    });*/
+    socket.on("inttick", sec => {
+        var seconds = sec % 60;
+        var minutes = (sec - seconds)/60;
+        document.getElementById("timer").innerHTML = minutes + " perc " + seconds + " másodperc ";
+    });
+
+    socket.on("newquestion", q =>{
+        console.log(q);
+        var questiondiv = document.getElementById("q");
+        questiondiv.innerHTML = q;
+        document.getElementById("ans").value = "";
+        document.getElementById("iscorrect").innerText = "";
+        document.getElementById("iscorrect2").innerText = "";
+        document.getElementById("ans").disabled = false;
+        isCorrect = false;
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,questiondiv]);
+        document.getElementById("timer").innerHTML = "";
+    });
+    /*socket.on("iscorrect", b => {
+        document.getElementById("iscorrect").innerText = b;
+        document.getElementById("iscorrect").className = "text"
+        if (b == "Jó válasz!") {
+            document.getElementById("iscorrect").className = "text-success";
+            document.getElementById("ans").disabled = true;
+            isCorrect = true;
+            document.getElementById("ans").value = "";
+        }
+        else if (b=="Rossz válasz!") {  
+            document.getElementById("iscorrect").className = "text-danger";
+        }
+    });*/
+    socket.on("reply", data => {
+        document.getElementById("iscorrect").innerText = data.message;
+        document.getElementById("iscorrect").className = data.class;
+        document.getElementById("iscorrect2").innerText = data.message;
+        document.getElementById("iscorrect2").className = data.class;
+    });
+    function ans(){
+        if (!isCorrect) {
+            var ans = document.getElementById("ans").value;
+            data.ans = ans;
+            document.getElementById("ans").value = "";
+            socket.emit("newanswer", data);
+        }
+    }
+</script>
+</body>

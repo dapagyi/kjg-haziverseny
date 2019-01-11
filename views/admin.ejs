@@ -1,0 +1,117 @@
+<body>
+<h1>KJG háziverseny</h1>
+<button onclick="refresh();" type="button">Frissít</button><button onclick="newQuestion();" type="button">Új kérdés</button><button onclick="backQuestion();" type="button">Vissza</button><br>
+<br>Privát üzenet: <input type="text" id="pmteam" placeholder="csapatnév"><input type="text" id="pmmsg" placeholder="üzenet"><button onclick="sendPM();" type="button">Küldés</button>
+<br>Kép: <input type="text" id="imgurl" placeholder="/kocka.png"><button onclick="sendImg();" type="button">Küldés</button>
+<br>Visszaszámláló: <input type="number" id="countdown" placeholder="másodpercekben kifejezve"><button onclick="startTimer();" type="button">Indít</button>
+<br><p id="timer"></p>
+<br>
+<br>Kérdés: <div id="q"></div><br>
+<h4>Pontszámok</h4>
+<table id="s">
+</table>
+<h4>Kapcsolatok</h4>
+<table id="t">
+</table>
+
+<br><h4>Kérdések</h4>
+<%questions.forEach(val => {%>
+<%=val[0]%><br>
+<%})%>
+<br>
+<h4>Log</h4>
+<p id="log"></p>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+    var table = document.getElementById("t");
+    var stable = document.getElementById("s");
+    refresh();
+    function refresh(){
+        socket.emit("admin:refresh");
+    }
+
+    function newQuestion(){
+        socket.emit("admin:newquestion", 1);
+    }
+
+    function backQuestion(){
+        socket.emit("admin:newquestion", -1);
+    }
+
+    function sendPM(){
+        socket.emit("admin:sendpm", {team: document.getElementById("pmteam").value, msg: document.getElementById("pmmsg").value});
+    }
+
+    function startTimer(){
+        socket.emit("admin:starttimer", document.getElementById("countdown").value);
+    }
+
+    function sendImg(){
+        socket.emit("admin:sendimg", document.getElementById("imgurl").value);
+    }
+
+    function welcome() {socket.emit("welcome", data);}
+
+    socket.on("admin:alluser", data => {
+        var sockets = data.sockets;
+        table.innerHTML = "<tr><th>Név</th><th>Iskola</th><th></th></tr>";
+        for(var i=0; i<sockets.length; i++){
+            var r = table.insertRow(table.rows.length);
+            var c1 = r.insertCell(0); c1.innerText = sockets[i].name;
+            var c2 = r.insertCell(1); c2.innerText = sockets[i].school;
+        }
+        var scores = data.scores;
+        stable.innerHTML = "<tr><th>Név (Iskola)</th><th>Pontszám</th><th>Módosít</th><th>Tippek</th></tr>";
+        for(var i=0; i<Object.keys(scores).length; i++){
+            var n = Object.keys(scores)[i];
+            console.log(n);
+            var r = stable.insertRow(stable.rows.length);
+            var c1 = r.insertCell(0); c1.innerText = n;
+            var c2 = r.insertCell(1); c2.innerText = scores[Object.keys(scores)[i]].value;
+            var c3 = r.insertCell(2); c3.innerHTML = '<a id="myLink" title="+1" href="#" onclick="modifyScore(\'asd\',1);return false;">+1 pont</a>,<a id="myLink" title="-1" href="#" onclick="modifyScore(\'asd\',-1);return false;">-1 pont</a>'.split('asd').join(n);
+            var c4 = r.insertCell(3); c4.innerHTML = scores[Object.keys(scores)[i]].tips;
+        }
+
+    });
+
+    function modifyScore(team, score){
+        socket.emit('admin:modifyscore', {team: team, score: score});
+    }
+    /*
+    var x = null;
+    socket.on("timer", (t)=>{
+        if (x!=null) clearInterval(x);
+        x = setInterval(function() {
+        var distance = t - (new Date().getTime());
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = minutes + " perc " + seconds + " másodperc ";
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "Az idő lejárt.";
+        }
+        }, 1000); 
+    });*/
+    socket.on("inttick", sec => {
+        var seconds = sec % 60;
+        var minutes = (sec - seconds)/60;
+        document.getElementById("timer").innerHTML = minutes + " perc " + seconds + " másodperc ";
+    });
+
+    socket.on("admin:log", m => {
+        var l = document.getElementById("log");
+        l.innerHTML = m + "<br>" + l.innerHTML;
+    });
+
+    socket.on("newquestion", q =>{
+        console.log(q);
+        document.getElementById("q").innerText = q;
+    });
+</script>
+
+</body>

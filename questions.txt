@@ -1,0 +1,9 @@
+﻿Zsófi és Anna poharában 5-5 dl gyümölcslé van, Zsófiéban barack, Annáéban körte. Először Anna átmért fél decilitert Zsófi italából a saját poharába, jó alaposan összekeverte, jólesően összeverekedtek, majd Zsófi visszakanalazott ugyanennyit. Mindketten kiszámolták, hogy mennyi gyümölcslevük van a másiktól. Mennyi a két mennyiség különbségének deciliterben kifejezett számértéke?; 4; 0
+
+Egy másik Annának van 2 pár ananászos zoknija, 6 darab avokádós zoknija, 1 pár elefántos kesztyűje és 3 pár virágos térdzoknija. Összesen hány pár zoknija van Annának?; 4; 8
+
+Mennyi az alábbi tört értéke, ha a különböző betűk különböző, az azonos betűk azonos számjegyeket jelölnek? <br>\(\frac{K\cdot A\cdot T\cdot O\cdot N\cdot A}{I\cdot S\cdot T\cdot H\cdot E\cdot B\cdot E\cdot S\cdot T}\); 4; 0
+
+A \(20\cdot18\cdot20\cdot19\) egy hatjegyű szám, amelynek az első három számjegye 1, 3 és 6, ebben a sorrendben. Mennyi az utolsó három számjegy összege?; 4; 8
+
+Bence születésnapjára hidraulikus gyümölcsprést kapott, nagymamájától pedig egy kosárban 32 almát. Ebből almalevet szeretne készíteni. Ehhez kettesével beleteszi a gépbe az almákat. Két alma préselése után a gépből kiönti egy kancsóba a már elkészült levet. Minden harmadik alma, amit kivesz a kosárból, kukacos, azonban ezt már csak préselés után veszi észre. Ha kukacos alma került a gépbe, akkor annak teljes tartalmát kiönti a kerti illemhelyiségbe. A 32 alma felhasználása után hány egészséges alma veszett kárba?; 4; 10

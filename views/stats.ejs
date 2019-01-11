@@ -1,0 +1,52 @@
+<html>
+  <head>
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/yeti/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/x-scss" href="https://bootswatch.com/4/yeti/_bootswatch.scss"/>
+        <link rel="stylesheet" type="text/x-scss" href="https://bootswatch.com/4/yeti/_variables.scss"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'bar']});
+//google.charts.setOnLoadCallback(drawBasic);
+var socket = io();
+socket.on("newquestion", q =>{
+        console.log(q);
+        var questiondiv = document.getElementById("q");
+        questiondiv.innerHTML = q;
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,questiondiv]);
+});
+socket.on("admin:alluser", data => {
+        draw(data.scores);
+    });
+    function draw(scores){
+    var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Csapatok');
+      data.addColumn('number', 'Pontok');
+      for(var team in scores) {
+        data.addRow([team, scores[team].value]);
+      }
+      // Set chart options
+      var options = {'title':'KJG nyílt nap 2018',
+                     hAxis: {
+          title: 'Csapatnév',
+        },
+        vAxis: {
+          title: 'Pontszám'
+        }};
+      var chart = new google.visualization.ColumnChart(document.getElementById('top_x_div'));
+        chart.draw(data, options);
+    }
+    </script>
+  </head>
+  <body>
+    <h3 style="padding:1rem" id="q"></h1>
+    <div id="top_x_div" style="width: 100%; height: 800px;"></div>
+  </body>
+</html>
