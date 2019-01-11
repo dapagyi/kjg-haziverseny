@@ -27,12 +27,9 @@ Hibás megoldásért nem jár pontlevonás, hanem csökken a feladat pontérték
 A pontszám [grafikonon](http://localhost/stats) nyomonkövethető, kivetíthető.
 
 ## Képernyőképek
-![Felhasználó](public/screenshots/user.JPG)
+![Felhasználó](public/screenshots/user.jpg)
 ![Statisztika](public/screenshots/stats.JPG)
 ![Admin felület](public/screenshots/admin.JPG)
-
-
-<br><br><br><br><br>
 
 ## Tennivalók, ötletek, fejlesztési lehetőségek
 #### Általános
