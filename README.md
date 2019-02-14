@@ -9,11 +9,19 @@ A hatodik osztályos nyílt matematika háziversenyre készült.
 - pontosvessző nem használható a feladat szövegében
 
 ### Indítás
+
+Node, npm telepítése szükséges hozzá.
+Letöltés után telepítsük a szükséges modulokat:
 ```
 $ npm install
+```
+Majd indítsuk el az alkalmazást:
+```
 $ node app
 ```
-A kliensek nyissák meg a kiszolgáló helyi ip-jét böngészőben. 
+A kezelő nyissa meg az [adminfelületet](http://localhost/szupertitkos), a kliensek a kiszolgáló helyi ip címe alapján csatlakozzanak a szerverre.
+Az admin küldi ki a kérdéseket az "új kérdés" gombra kattintva. Ezután lehetősége van időkorlátot beállítani, továbbá a "public" mappában elhelyehett képeket megjeleníteni a felhasználóknak.
+<!--A kliensek nyissák meg a kiszolgáló helyi ip-jét böngészőben. -->
 ### Admin
 [Adminfelület](http://localhost/szupertitkos) funkciók:
 - új kérdés küldése
