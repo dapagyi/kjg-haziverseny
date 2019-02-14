@@ -24,8 +24,10 @@ function qload(){
     console.log("Kérdések:", questions);
 }
 qload();
+
 var logname = new Date().toISOString().replace(/:/g,'')./*replace(//g,'').*/slice(0,17);
 console.log(logname);
+
 function log(m, file = "log.txt"){
     m = new Date().toLocaleTimeString() + " > " + m;
     console.log(m);
@@ -39,6 +41,7 @@ var scores = {};
 var timeback = -1;
 
 io.on("connection", (socket) => {
+    //Felhasználó regisztrálása
     var u;
     socket.emit("welcome");
     socket.on("welcome", (data)=>{
@@ -59,16 +62,19 @@ io.on("connection", (socket) => {
         refreshAdmin();
     });
 
+    //Kép küldése
     socket.on("admin:sendimg", (url)=>{
         log("Képlink érkezett: " + url);
         io.emit("img", url);
     });
 
+    //Privát üzenet
     socket.on("admin:sendpm", (data)=>{
         log("Privát üzenet: " + JSON.stringify(data));
         io.emit("pm", data);
     });
 
+    //Admin elindítja a visszaszámlálót
     var tin = null;
     socket.on("admin:starttimer", (sec) => {
         if (tin!=null) clearInterval(tin);
@@ -90,6 +96,7 @@ io.on("connection", (socket) => {
         score(data.team, data.score);
     });
 
+    //Az admin új kérdést küld ki
     socket.on("admin:newquestion", (n)=>{
         if ((current + parseInt(n)) >= 0) {
         current = (current + parseInt(n) ) %questions.length;
@@ -103,6 +110,7 @@ io.on("connection", (socket) => {
         }
     });
 
+    //Egy socket lecsatlakozik
     socket.on("disconnect", ()=>{
         if (typeof socket.user !== "undefined") {
             var index = sockets.indexOf(socket.user);
@@ -110,7 +118,8 @@ io.on("connection", (socket) => {
             log(u + " lecsatlakozott.");
         }
     });
-
+    
+    //Új válasz érkezik
     socket.on("newanswer", (data)=> {
         log("Új válasz: " + JSON.stringify(data));
         var r;
@@ -153,7 +162,7 @@ app.get("/", (req, res) => {
     res.render("login", {text: ''});
 });
 
-app.get("/szupertitkos", (req,res)=> {
+app.get("/admin", (req,res)=> {
     res.render("admin", {questions: questions});
 });
 
