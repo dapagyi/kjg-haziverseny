@@ -30,7 +30,7 @@ A pontszám [grafikonon](http://localhost/stats) nyomonkövethető, kivetíthet�
 ![Felhasználó](public/screenshots/user.jpg)
 ![Statisztika](public/screenshots/stats.JPG)
 ![Admin felület](public/screenshots/admin.JPG)
-
+<!--
 ## Tennivalók, ötletek, fejlesztési lehetőségek
 #### Általános
 - könnyen felhasználhatóvá alakítani, a használatát jól dokumentálni és elérhetővé tenni másoknak (csalások, kiskapuk?)
@@ -50,7 +50,7 @@ A pontszám [grafikonon](http://localhost/stats) nyomonkövethető, kivetíthet�
 - fejlett log (mappa, fájlok létrehozása)
 - program leállítása, log dátum-idő alapján való átmásolása
 - admin üzeneteket elkülönítve küldeni (külön tárolni az admin socketeket) (socket.io szoba?)
-
+-->
 <!--
 ```javascript
 console.log("alma");
